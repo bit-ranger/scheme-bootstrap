@@ -16,14 +16,13 @@
 在输入框中输入scheme代码，例如：
 
 ```scheme
-(define (append x y)
-  (cond [(null? x) y]
-        [else (if true
-                  (cons (car x)
-
-                        (append (cdr x)
-                                y))
-                  false)]))
+(define append (lambda ( x y)
+                 (cond [(null? x) y]
+                       [else (if true
+                                 (cons (car x)
+                                       (append (cdr x)
+                                               y))
+                                 false)])) )
 ```
 
 此时该函数将注册到环境中，然后再试用此函数。
