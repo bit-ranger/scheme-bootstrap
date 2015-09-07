@@ -14,6 +14,8 @@
   ;值的表达式
   (define (value exp)
     (caddr exp))
+
+  (define set-variable-value! ((make-environment) 'set))
   
   (define (eval exp env)
     (set-variable-value! (variable exp)

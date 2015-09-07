@@ -4,8 +4,8 @@
 
 
 (define (make-define)
-
-  (define lambda-diapatch (make-lambda))
+  
+  (define new-lambda ((make-lambda) 'construct))
   
   ;变量名
   (define (variable exp)
@@ -16,9 +16,8 @@
   (define (value exp)
     (if (symbol? (cadr exp))
         (caddr exp)
-        ((lambda-diapatch 'construct)
-         (cdadr exp)
-         (cddr exp))))
+        (new-lambda (cdadr exp)
+                    (cddr exp))))
   ;构造器
   (define (construct var param)
     (list 'define var param))
@@ -28,7 +27,7 @@
           [(eq? m 'value) value]
           [(eq? m 'construct) construct]
           [else (error "Unknown operator" m)]))
-
+  
   dispatch)
 
 

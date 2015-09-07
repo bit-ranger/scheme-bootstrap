@@ -1,21 +1,8 @@
-#scheme-bootstrap
-
-这是一个自举的scheme解释器
-
-启动文件为： `interp.scm`
-
-建议使用 [racket](http://racket-lang.org/) 或 [MIT-scheme](http://www.gnu.org/software/mit-scheme/) 运行此程序
+#lang racket
 
 
-#示例
 
-首先，打开`interpl.scm`文件的**REPL**
 
-然后，输入 `(repl)`，此时控制台将进入等待输入状态。
-
-在控制台输入scheme代码，例如：
-
-```scheme
 (define (new-builder)
   (let ([ls '()])
     
@@ -37,11 +24,7 @@
       (cond [(eq? m 'to-list) (to-list)]
             [(eq? m 'append) append]))
     dispatch))
-```
 
-此时该函数将注册到环境中，然后再试用此函数。
-
-```scheme
 (define builder (new-builder))
 
 ((builder 'append) '(a b c))
@@ -49,6 +32,3 @@
 ((builder 'append) '(d e f))
 
 (builder 'to-list)
-```
-
-###Enjoy It!

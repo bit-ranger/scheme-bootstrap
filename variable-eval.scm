@@ -6,8 +6,12 @@
 (load "environment.scm")
 
 (define (install-variable-eval)
+  
+  (define lookup-variable-value ((make-environment)
+                                 'lookup))
+  
   (define (eval exp env)
-    (let ([value (lookup-variable-value exp env)])
-      value))
-  (put eval 'eval '**variable**)
+    (lookup-variable-value exp env))
+  
+  (put eval 'eval variable-keyword)
   '(variable eval installed))

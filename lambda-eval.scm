@@ -10,19 +10,20 @@
 
 ;对lambda的处理
 (define (install-lambda-eval)
-
-  (define lambda-dispatch (make-lambda))
-
-  (define (parameters exp)
-    ((lambda-dispatch 'parameters) exp))
-
-  (define (body exp)
-    ((lambda-dispatch 'body) exp))
   
-  (define (eval exp env)
-    (make-procedure (parameters exp)
-                    (body exp)
-                    env))
-
-  (put eval 'eval 'lambda)
-  '(install lambda done))
+  (let ([lambda-dispatch (make-lambda)]
+        [procedure-dispatch (make-procedure)])
+    
+    (define parameters (lambda-dispatch 'parameters))
+    
+    (define body (lambda-dispatch 'body))
+    
+    (define new-procedure (procedure-dispatch 'construct))
+    
+    (define (eval exp env)
+      (new-procedure (parameters exp)
+                     (body exp)
+                     env))
+    
+    (put eval 'eval 'lambda)
+    '(install lambda done)))

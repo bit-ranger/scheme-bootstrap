@@ -7,14 +7,16 @@
 
 ;对begind的处理
 (define (install-begin-eval)
-
-  (define dispatch (make-begin))
-
-  (define (eval exp env)
-    (interp-sequence ((dispatch 'actions) exp)
-                   env))
   
-  (put eval 'eval 'begin)
-  '(begin eval installed))
+  (let ([begin-dispatch (make-begin)])
+    
+    (define actions (begin-dispatch 'actions))
+    
+    (define (eval exp env)
+      (interp-sequence (actions exp)
+                       env))
+    
+    (put eval 'eval 'begin)
+    '(begin eval installed)))
 
 

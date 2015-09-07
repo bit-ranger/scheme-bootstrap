@@ -7,24 +7,20 @@
 ;对判断语句的处理
 (define (install-if-eval)
   
-  (define dispatch (make-if))
-  
-  (define (true? exp)
-    ((dispatch 'true?) exp))
-  
-  (define (predicate exp)
-    ((dispatch 'predicate) exp))
-  
-  (define (consequent exp)
-    ((dispatch 'consequent) exp))
-  
-  (define (alternative exp)
-    ((dispatch 'alternative) exp))
-  
-  (define (eval exp env)
-    (if (true? (interp (predicate exp) env))
-        (interp (consequent exp) env)
-        (interp (alternative exp) env)))
-  
-  (put eval 'eval 'if)
-  '(if eval installed))
+  (let ([if-dispatch (make-if)])
+    
+    (define true? (if-dispatch 'true?))
+    
+    (define predicate (if-dispatch 'predicate))
+    
+    (define consequent (if-dispatch 'consequent))
+    
+    (define alternative (if-dispatch 'alternative))
+    
+    (define (eval exp env)
+      (if (true? (interp (predicate exp) env))
+          (interp (consequent exp) env)
+          (interp (alternative exp) env)))
+    
+    (put eval 'eval 'if)
+    '(if eval installed)))

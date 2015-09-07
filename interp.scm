@@ -11,7 +11,7 @@
 (load "if-eval.scm")
 (load "begin-eval.scm")
 (load "cond-eval.scm")
-;(require "let.ss")
+(load "let-eval.scm")
 ;(require "let*.ss")
 ;(require "and.ss")
 ;(require "or.ss")
@@ -19,6 +19,7 @@
 (load "environment.scm")
 (load "procedure.scm")
 
+(install-application-eval)
 (install-quote-eval)
 (install-variable-eval)
 (install-begin-eval)
@@ -27,54 +28,57 @@
 (install-definition-eval)
 (install-if-eval)
 (install-cond-eval)
+(install-let-eval)
+;(install-let*-package)
 ;(install-and-package)
 ;(install-or-package)
-;(install-let-package)
-;(install-let*-package)
-(install-application-eval)
 
 
+
+
+(define env-dispatch (make-environment))
+(define proc-dispatch (make-procedure))
 
 (define (setup-environment)
-  (let ([initial-env (extend-environment (primitive-procedure-names)
-                                         (primitive-procedure-objects)
-                                         the-empty-environment)])
-    ;对与单引号的解释：因为解释器读取的是一个文本，这意味着整个文本就是一个大符号列表
-    ;其中每个表达式都是符号
-    ;而如果表达式中显式的存在单引号，那么其真实结构是'quote 与 表达式形成的符号表。
-    (define-variable! 'true true initial-env)
-    (define-variable! 'false false initial-env)
+  
+  (let ([initial-env ((env-dispatch 'extend) (proc-dispatch 'primitive-names)
+                                             (proc-dispatch 'primitive-objects)
+                                             the-empty-environment)])
+    
+    ;为一些基本值赋予含义
+    ((env-dispatch 'def) 'true true initial-env)
+    ((env-dispatch 'def) 'false false initial-env)
     initial-env))
 
+;全局环境
 (define the-global-environment (setup-environment))
 
 
-(define input-prompt ";;; M-Eval input: ")
-(define output-prompt ";;; M-Eval value: ")
 
-(define (driver-loop)
-  (prompt-for-input input-prompt)
-  (let ([input (read)])
-    (let ([output (interp input the-global-environment)])
-      (announce-output output-prompt)
-      (user-print output)))
-  (driver-loop))
-
-(define (prompt-for-input string)
+(define (prompt-for-input)
   (newline)
   (newline)
-  (display string)
+  (display ";;; M-Eval input: ")
   (newline))
 
-(define (announce-output string)
+(define (announce-output)
   (newline)
-  (display string)
+  (display ";;; M-Eval value: ")
   (newline))
 
-(define (user-print object)
-  (if (compound-procedure? object)
+(define (result-print object)
+  (if ((proc-dispatch 'compound?) object)
       (display (list 'compound-procedure
-                     (procedure-parameters object)
-                     (procedure-body object)
+                     ((proc-dispatch 'parameters) object)
+                     ((proc-dispatch 'body) object)
                      '<procedure-env>))
       (display object)))
+
+
+(define (repl)
+  (prompt-for-input)
+  (let ([input (read)])
+    (let ([output (interp input the-global-environment)])
+      (announce-output)
+      (result-print output)))
+  (repl))

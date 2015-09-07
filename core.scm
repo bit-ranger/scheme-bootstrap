@@ -20,12 +20,12 @@
     (let ([proc (get 'eval type)])
       (if proc
           (proc exp env)
-          (if (or (eq? type '**variable**)
-                  (eq? type '**application**))
+          (if (or (eq? type variable-keyword)
+                  (eq? type application-keyword))
               (error "Unknown expression type -- INTERP" exp)
               (if (variable? exp)
-                  (interp-generic (attach-tag '**variable** exp) env)
-                  (interp-generic (attach-tag '**application** exp) env)))))))
+                  (interp-generic (attach-tag variable-keyword exp) env)
+                  (interp-generic (attach-tag application-keyword exp) env)))))))
 
 ;处理表达式序列
 (define (interp-sequence exps env)
@@ -54,3 +54,7 @@
 ;剩余的序列
 (define (rest-exps seq)
   (cdr seq))
+
+(define variable-keyword '**variable**)
+
+(define application-keyword '**application**)

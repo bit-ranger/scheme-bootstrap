@@ -9,21 +9,24 @@
 ;对定义的处理
 (define (install-definition-eval)
   
-  (define dispatch (make-define))
-
-  (define (variable exp)
-    ((dispatch 'variable) exp))
-
-  (define (value exp)
-    ((dispatch 'value) exp))
-  
-  (define (eval exp env)
-    (define-variable! (variable exp)
-                      (interp (value exp) env)
-                      env)
-    'ok)
-  
-  (put eval 'eval 'define)
-  '(define eval installed))
+  (let ([define-dispatch (make-define)]
+        [env-dispatch (make-environment)])
+    
+    (define variable
+      (define-dispatch 'variable))
+    
+    (define value
+      (define-dispatch 'value))
+    
+    (define define-variable! (env-dispatch 'def))
+    
+    (define (eval exp env)
+      (define-variable! (variable exp)
+                        (interp (value exp) env)
+                        env)
+      'ok)
+    
+    (put eval 'eval 'define)
+    '(define eval installed)))
 
 
