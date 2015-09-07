@@ -21,11 +21,17 @@
   ;构造器
   (define (construct var param)
     (list 'define var param))
+
+  ;是否为定义语句
+  (define (define? exp)
+    (and (pair? exp)
+         (eq? 'define (car exp))))
   
   (define (dispatch m)
     (cond [(eq? m 'variable) variable]
           [(eq? m 'value) value]
           [(eq? m 'construct) construct]
+          [(eq? m 'define?) define?]
           [else (error "Unknown operator" m)]))
   
   dispatch)

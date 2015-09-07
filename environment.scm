@@ -54,7 +54,10 @@
           (let ([frame (first-frame env)])
             (scan (frame-variables frame)
                   (frame-values frame)))))
-    (env-loop env))
+    (let ([value (env-loop env)])
+      (if (eq? value '**unassigned**)
+          (error var ": undefined;  cannot use before initialization!")
+          value)))
   
   ;改变赋值，全环境搜索
   (define (set-variable-value! var val env)

@@ -10,7 +10,7 @@
   (define new-application ((make-application) 'construct))
   
   (define new-lambda ((make-lambda) 'construct))
-
+  
   ;let构造器
   ;body是一个列表
   ;binds是一个列表
@@ -21,6 +21,9 @@
     (if (named-let? exp)
         (caddr exp)
         (cadr exp)))
+  
+  (define (bind var value)
+    (list var value))
   
   (define (body exp)
     (if (named-let? exp)
@@ -52,12 +55,14 @@
                                     (cdddr exp)))
             (new-application name params))))
   
+  
   (define (dispatch m)
     (cond [(eq? m 'construct) construct]
           [(eq? m 'binds) binds]
           [(eq? m 'body) body]
           [(eq? m 'parameters) parameters]
           [(eq? m 'values) values]
+          [(eq? m 'bind) bind]
           [else (error "Unknown operator" m)]))
   
   dispatch)

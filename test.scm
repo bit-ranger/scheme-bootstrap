@@ -1,5 +1,15 @@
 #lang scheme
 
+(define a 1)
+
+(define (test)
+  
+  (define a 3)
+  
+  (define b a)
+  
+  
+  b)
 
 (define (new-builder)
   (let* ([ls '()])
