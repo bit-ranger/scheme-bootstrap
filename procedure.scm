@@ -9,6 +9,9 @@
         false))
   
   ;创建过程
+  ;parameters是一个列表
+  ;body是一个列表
+  ;env是一个环境
   (define (construct parameters body env)
     (list 'procedure parameters body env))
   
@@ -42,7 +45,8 @@
           (list 'cdr cdr)
           (list 'cons cons)
           (list 'null? null?)
-          (list 'eq? eq?)))
+          (list 'eq? eq?)
+          (list '+ +)))
   
   ;基本过程名列表
   (define (primitive-names)

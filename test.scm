@@ -1,12 +1,10 @@
-#lang racket
-
-
+#lang scheme
 
 
 (define (new-builder)
-  (let ([ls '()])
+  (let* ([ls '()])
     
-    (define assembly (lambda (x y)
+    (define assembly (λ (x y)
                        (cond [(null? x) y]
                              [else (if true
                                        (cons (car x)

@@ -16,7 +16,7 @@
       (interp-sequence (actions exp)
                        env))
     
-    (put eval 'eval 'begin)
+    (put eval eval-proc-key 'begin)
     '(begin eval installed)))
 
 

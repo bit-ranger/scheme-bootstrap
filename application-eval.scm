@@ -81,5 +81,5 @@
                   (list-of-values (operands exp) env)))
     
     
-    (put  eval 'eval '**application**)
+    (put  eval eval-proc-key '**application**)
     '(application eval installed)))

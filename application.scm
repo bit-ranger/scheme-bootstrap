@@ -11,7 +11,9 @@
   ;操作数
   (define (operands exp)
     (cdr exp))
-  
+
+  ;构建函数调用
+  ;params是一个列表
   (define (construct proc params)
     (cons proc params))
   

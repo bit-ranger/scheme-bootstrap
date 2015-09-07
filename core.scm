@@ -17,7 +17,7 @@
 (define (interp-generic tagged-exp env)
   (let ([type (type-tag tagged-exp)]
         [exp (contents tagged-exp)])
-    (let ([proc (get 'eval type)])
+    (let ([proc (get eval-proc-key type)])
       (if proc
           (proc exp env)
           (if (or (eq? type variable-keyword)
@@ -58,3 +58,5 @@
 (define variable-keyword '**variable**)
 
 (define application-keyword '**application**)
+
+(define eval-proc-key 'eval)

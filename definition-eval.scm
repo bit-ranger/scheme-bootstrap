@@ -26,7 +26,7 @@
                         env)
       'ok)
     
-    (put eval 'eval 'define)
+    (put eval eval-proc-key 'define)
     '(define eval installed)))
 
 

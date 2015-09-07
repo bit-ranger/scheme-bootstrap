@@ -23,5 +23,5 @@
                          env)
     'ok)
   
-  (put eval 'eval 'set!)
+  (put eval eval-proc-key 'set!)
   '(assignment eval installed))

@@ -12,27 +12,27 @@
 (load "begin-eval.scm")
 (load "cond-eval.scm")
 (load "let-eval.scm")
-;(require "let*.ss")
-;(require "and.ss")
-;(require "or.ss")
+(load "let*-eval.scm")
+(load "and-eval.scm")
+(load "or-eval.scm")
 (load "application-eval.scm")
 (load "environment.scm")
 (load "procedure.scm")
 
-(install-application-eval)
-(install-quote-eval)
-(install-variable-eval)
-(install-begin-eval)
+
+(install-let*-eval)
+(install-and-eval)
+(install-or-eval)
 (install-assignment-eval)
+(install-quote-eval)
+(install-begin-eval)
+(install-let-eval)
+(install-cond-eval)
 (install-lambda-eval)
 (install-definition-eval)
 (install-if-eval)
-(install-cond-eval)
-(install-let-eval)
-;(install-let*-package)
-;(install-and-package)
-;(install-or-package)
-
+(install-application-eval)
+(install-variable-eval)
 
 
 
@@ -40,20 +40,20 @@
 (define proc-dispatch (make-procedure))
 
 (define (setup-environment)
+
+  (define def-var (env-dispatch 'def))
   
   (let ([initial-env ((env-dispatch 'extend) (proc-dispatch 'primitive-names)
                                              (proc-dispatch 'primitive-objects)
                                              the-empty-environment)])
     
     ;为一些基本值赋予含义
-    ((env-dispatch 'def) 'true true initial-env)
-    ((env-dispatch 'def) 'false false initial-env)
+    (def-var 'true true initial-env)
+    (def-var 'false false initial-env)
     initial-env))
 
 ;全局环境
 (define the-global-environment (setup-environment))
-
-
 
 (define (prompt-for-input)
   (newline)
@@ -75,6 +75,10 @@
       (display object)))
 
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;主程序
 (define (repl)
   (prompt-for-input)
   (let ([input (read)])

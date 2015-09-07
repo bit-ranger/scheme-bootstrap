@@ -12,5 +12,5 @@
   (define (eval exp env)
     (text-of-quotation exp))
   
-  (put eval 'eval 'quote)
+  (put eval eval-proc-key 'quote)
   '(quote eval installed))

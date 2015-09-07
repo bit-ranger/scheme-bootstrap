@@ -10,9 +10,12 @@
   (define new-application ((make-application) 'construct))
   
   (define new-lambda ((make-lambda) 'construct))
-  
+
+  ;let构造器
+  ;body是一个列表
+  ;binds是一个列表
   (define (construct binds body)
-    (list 'let binds body))
+    (cons 'let (cons binds body)))
   
   (define (binds exp)
     (if (named-let? exp)

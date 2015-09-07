@@ -22,5 +22,5 @@
           (interp (consequent exp) env)
           (interp (alternative exp) env)))
     
-    (put eval 'eval 'if)
+    (put eval eval-proc-key 'if)
     '(if eval installed)))

@@ -69,5 +69,5 @@
   (define (eval exp env)
     (interp (cond->if exp) env))
   
-  (put eval 'eval 'cond)
+  (put eval eval-proc-key 'cond)
   '(cond eval installed))

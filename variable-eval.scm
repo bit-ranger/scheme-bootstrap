@@ -13,5 +13,5 @@
   (define (eval exp env)
     (lookup-variable-value exp env))
   
-  (put eval 'eval variable-keyword)
+  (put eval eval-proc-key variable-keyword)
   '(variable eval installed))

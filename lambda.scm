@@ -1,7 +1,10 @@
 ;#lang scheme
 
 (define (make-lambda)
+  
   ;构造lambda
+  ;parameters是一个列表
+  ;body是一个列表
   (define (construct parameters body)
     (cons 'lambda (cons parameters body)))
   

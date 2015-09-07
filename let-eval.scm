@@ -33,6 +33,6 @@
           (interp new-exp env))))
     
     
-    (put eval 'eval 'let)
+    (put eval eval-proc-key 'let)
     '(let eval installed)))
 

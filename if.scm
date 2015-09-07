@@ -9,8 +9,7 @@
   
   ;if 推论
   (define (consequent exp)
-    (let ([value (caddr exp)])
-      value))
+    (caddr exp))
   
   ;if 替代(可或缺)
   (define (alternative exp)
@@ -19,14 +18,15 @@
         'false)) ;若缺少，则返回'false，注意'false带引号，此处只是在操作文本。
   
   (define (true? x)
-    (let ([value (not (false? x))])
-      value))
+    (not (false? x)))
   
   (define (false? x)
-    (let ([value (eq? x false)]) ;除非是字面量类型，否则解释器得到的结果应该是解释器语言中的值。这需要解释器提供一些基本变量或过程。
-      value))
+    ;除非是字面量类型，否则解释器得到的结果应该是解释器语言中的值。
+    ;这需要解释器提供一些基本变量或过程。
+    (eq? x false))
   
   ;构造if
+  ;三个参数都必须是单独一条语句
   (define (construct predicate consequent alternative)
     (list 'if predicate consequent alternative))
   
@@ -37,5 +37,5 @@
           [(eq? m 'true?) true?]
           [(eq? m 'construct) construct]
           [else (error "Unknown operator" m)]))
-
+  
   dispatch)

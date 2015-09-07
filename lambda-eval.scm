@@ -25,5 +25,6 @@
                      (body exp)
                      env))
     
-    (put eval 'eval 'lambda)
+    (put eval eval-proc-key 'lambda)
+    (put eval eval-proc-key 'λ)
     '(install lambda done)))
