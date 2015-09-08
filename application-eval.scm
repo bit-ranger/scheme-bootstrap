@@ -3,6 +3,7 @@
 
 (load "core.scm")
 (load "procedure.scm")
+(load "proc-transform.scm")
 (load "environment.scm")
 (load "application.scm")
 
@@ -11,7 +12,8 @@
   
   (let ([application-dispatch (make-application)]
         [procedure-dispatch (make-procedure)]
-        [environment-dispatch (make-environment)])
+        [environment-dispatch (make-environment)]
+        [proc-trans-dispatch (make-proc-transform)])
     
     ;表达式操作部分
     (define operator (application-dispatch 'operator))
@@ -43,8 +45,12 @@
     (define procedure-parameters
       (procedure-dispatch 'parameters))
     
-    (define procedure-body
-      (procedure-dispatch 'body))
+    (define (procedure-body proc)
+      (trans-body ((procedure-dispatch 'body) proc)))
+    
+    ;对过程体进行变形，提供同时定义的含义
+    (define trans-body
+      (proc-trans-dispatch 'trans-body))
     
     (define procedure-environment
       (procedure-dispatch 'environment))

@@ -4,12 +4,11 @@
 
 (define (test)
   
-  (define a 3)
-  
   (define b a)
   
+  (define a 3)
   
-  b)
+  a)
 
 (define (new-builder)
   (let* ([ls '()])

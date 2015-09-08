@@ -56,7 +56,7 @@
                   (frame-values frame)))))
     (let ([value (env-loop env)])
       (if (eq? value '**unassigned**)
-          (error var ": undefined;  cannot use before initialization!")
+          (error var "undefined;  cannot use before initialization!")
           value)))
   
   ;改变赋值，全环境搜索
