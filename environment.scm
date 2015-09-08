@@ -1,6 +1,8 @@
 ;#lang scheme
 ;(require (planet neil/sicp))
 
+(load "keywords.scm")
+
 (define (make-environment)
   
   ;已装入的框架
@@ -55,7 +57,7 @@
             (scan (frame-variables frame)
                   (frame-values frame)))))
     (let ([value (env-loop env)])
-      (if (eq? value '**unassigned**)
+      (if (eq? value undefined-keyword)
           (error var "undefined;  cannot use before initialization!")
           value)))
   

@@ -10,6 +10,8 @@
   
   a)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (define (new-builder)
   (let* ([ls '()])
     
@@ -39,3 +41,49 @@
 ((builder 'append) '(d e f))
 
 (builder 'to-list)
+
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;letrec模拟
+(define (simulate-letrec)
+  (let ([a '*]
+        [b '*])
+    (set! a b)
+    (set! b 1)
+    a))
+
+;隔离定义作用域模拟
+(define (simulate-scope)
+  (let ([a '*]
+        [b '*])
+    (let ([x 1]
+          [y a])
+      (set! a x)
+      (set! b y)
+      b)))
+
+
+(define (test-letrec)
+  (define b 2)
+  (letrec ([a b]
+           [b 1])
+    a))
+
+
+(letrec ((b 2))
+  (letrec ((a b) (b 1))
+    a))
+
+
+(let ((b '**undefined**))
+  (set! b 2)
+  (letrec ((a b) (b 1)) a))
+
+
+(let ((a '**undefined**) (b '**undefined**))
+  (set! a b)
+  (set! b 1)
+  a)

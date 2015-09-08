@@ -15,11 +15,12 @@
 (load "let*-eval.scm")
 (load "and-eval.scm")
 (load "or-eval.scm")
+(load "letrec-eval.scm")
 (load "application-eval.scm")
 (load "environment.scm")
 (load "procedure.scm")
 
-
+(install-letrec-eval)
 (install-let*-eval)
 (install-and-eval)
 (install-or-eval)

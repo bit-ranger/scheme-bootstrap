@@ -1,21 +1,15 @@
 ;#lang scheme
 
 (load "definition.scm")
-(load "let.scm")
-(load "assignment.scm")
+(load "letrec.scm")
+(load "keywords.scm")
 
 (define (make-proc-transform)
   
   (let ([define-dispatch (make-define)]
-        [let-dispatch (make-let)]
-        [assign-dispatch (make-assignment)])
+        [letrec-dispatch (make-letrec)])
     
-    
-    ;新的let语句
-    (define new-let (let-dispatch 'construct))
-    
-    ;新的赋值语句
-    (define new-assignment (assign-dispatch 'construct))
+    (define new-letrec (letrec-dispatch 'construct))
     
     (define define? (define-dispatch 'define?))
     
@@ -23,7 +17,7 @@
     
     (define value (define-dispatch 'value))
     
-    (define bind (let-dispatch 'bind))
+    (define bind (letrec-dispatch 'bind))
     
     ;扫描出所有的内部定义语句
     (define (scan-out-defines seqs)
@@ -50,29 +44,17 @@
       (if (null? seqs)
           seqs
           (cons (bind (variable (car seqs))
-                      ''**unassigned**)                          ;此处用符号，而不用字面量
-                (new-binds (cdr seqs)))))                                        ;若使用字面量，解释器将认为这是一个变量
-    ;实现错误提示时将无法获知其真正绑定的变量名
+                      (value (car seqs)))
+                (new-binds (cdr seqs)))))
     
-    ;创建新的键值设置表
-    (define (new-sets seqs)
-      (if (null? seqs)
-          seqs
-          (cons (new-assignment (variable (car seqs))
-                                (value (car seqs)))
-                (new-sets (cdr seqs)))))
-    
-    
-    ;过程体
     (define (trans-body body-origin)
-      (let* ([defs (scan-out-defines body-origin)]
-             [undefs (scan-except-defines body-origin)])
+      (let* ([defs (scan-out-defines body-origin)]                ;所有定义语句
+             [undefs (scan-except-defines body-origin)])          ;所有非定义语句
         (if (null? defs)
             undefs
-            (let ([let-exp (new-let (new-binds defs)
-                                    (append (new-sets defs)
-                                            undefs))])
-              (list let-exp)))))
+            (let ([letrec-exp (new-letrec (new-binds defs)        ;转换成letrec语句
+                                          undefs)])
+              (list letrec-exp)))))
     
     (define (dispatch m)
       (cond [(eq? m 'trans-body) trans-body]

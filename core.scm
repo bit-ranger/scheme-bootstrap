@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "types.scm")
+(load "keywords.scm")
 
 (define (interp exp env)
   (cond [(self-evaluating? exp) exp]                                                  ; 字面量
@@ -54,9 +55,3 @@
 ;剩余的序列
 (define (rest-exps seq)
   (cdr seq))
-
-(define variable-keyword '**variable**)
-
-(define application-keyword '**application**)
-
-(define eval-proc-key 'eval)
