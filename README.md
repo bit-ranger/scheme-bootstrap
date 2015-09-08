@@ -17,15 +17,15 @@
 
 ```scheme
 (define (new-builder)
-  (let ([ls '()])
+  (let ((ls '()))
     
     (define assembly (lambda (x y)
-                       (cond [(null? x) y]
-                             [else (if true
+                       (cond ((null? x) y)
+                             (else (if true
                                        (cons (car x)
                                              (assembly (cdr x)
                                                        y))
-                                       false)])))
+                                       false)))))
     
     (define (append x)
       (set! ls (assembly ls x)))
@@ -34,8 +34,8 @@
       ls)
     
     (define (dispatch m)
-      (cond [(eq? m 'to-list) (to-list)]
-            [(eq? m 'append) append]))
+      (cond ((eq? m 'to-list) (to-list))
+            ((eq? m 'append) append)))
     dispatch))
 ```
 
