@@ -56,13 +56,13 @@
 计算10的阶乘
 
 ```scheme
-((lambda (n)
-   ((lambda (fact)
-      (fact fact n))
-    (lambda (ft k)
+((λ (n)
+   ((λ (f)
+      (f f n))
+    (λ (f k)
       (if (= k 1)
           1
-          (* k (ft ft (- k 1)))))))
+          (* k (f f (- k 1)))))))
  10)
 ```
 
