@@ -1,4 +1,4 @@
-#scheme-bootstrap
+# scheme-bootstrap
 
 这是一个自举的scheme解释器
 
@@ -7,7 +7,7 @@
 建议使用 [racket](http://racket-lang.org/) 或 [MIT-scheme](http://www.gnu.org/software/mit-scheme/) 运行此程序
 
 
-#示例
+# 示例
 
 首先，打开`interpl.scm`文件的**REPL**
 
@@ -49,6 +49,35 @@
 ((builder 'append) '(d e f))
 
 (builder 'to-list)
+```
+
+## 一些“不正常”的代码
+
+计算10的阶乘
+
+```scheme
+((lambda (n)
+   ((lambda (fact)
+      (fact fact n))
+    (lambda (ft k)
+      (if (= k 1)
+          1
+          (* k (ft ft (- k 1)))))))
+ 10)
+```
+
+递归的内部定义
+```scheme
+(define (even? x)
+  (define (e? n)
+    (if (= n 0)
+        true
+        (o? (- n 1))))
+  (define (o? n)
+    (if (= n 0)
+        false
+        (e? (- n 1))))
+  (e? x))
 ```
 
 ###Enjoy It!

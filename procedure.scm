@@ -47,7 +47,11 @@
           (list 'cons cons)
           (list 'null? null?)
           (list 'eq? eq?)
-          (list '+ +)))
+          (list '+ +)
+          (list '- -)
+          (list '* *)
+          (list '/ /)
+          (list '= =)))
   
   ;基本过程名列表
   (define (primitive-names)
