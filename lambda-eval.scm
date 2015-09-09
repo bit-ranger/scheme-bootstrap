@@ -2,9 +2,9 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
-
+(load "analyze.scm")
 (load "procedure.scm")
-
+(load "proc-transform.scm")
 (load "lambda.scm")
 
 
@@ -12,11 +12,17 @@
 (define (install-lambda-eval)
   
   (let ([lambda-dispatch (make-lambda)]
-        [procedure-dispatch (make-procedure)])
+        [procedure-dispatch (make-procedure)]
+        [trans-dispatch (make-proc-transform)])
+    
     
     (define parameters (lambda-dispatch 'parameters))
     
-    (define body (lambda-dispatch 'body))
+    (define (body exp)
+      (let ([bd ((trans-dispatch 'trans-body) ((lambda-dispatch 'body) exp))])
+        (display bd)
+        (newline)
+        bd))
     
     (define new-procedure (procedure-dispatch 'construct))
     
@@ -25,6 +31,14 @@
                      (body exp)
                      env))
     
+    (define (observe exp)
+      (let ([vars (parameters exp)]
+            [proc (analyze-sequence (body exp))])
+        (lambda (env)
+          (new-procedure vars proc env))))
+    
     (put eval eval-proc-key 'lambda)
     (put eval eval-proc-key 'λ)
-    '(install lambda done)))
+    (put observe observe-proc-key 'lambda)
+    (put observe observe-proc-key 'λ)
+    '(lambda eval installed)))

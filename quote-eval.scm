@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 
 ;对引号的处理
 (define (install-quote-eval)
@@ -11,6 +12,11 @@
   
   (define (eval exp env)
     (text-of-quotation exp))
+
+  (define (observe exp)
+    (let ([val (text-of-quotation exp)])
+      (lambda (env) val)))
   
   (put eval eval-proc-key 'quote)
+  (put observe observe-proc-key 'quote)
   '(quote eval installed))

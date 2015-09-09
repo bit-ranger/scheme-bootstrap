@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "let.scm")
 
 ;对let*处理
@@ -36,8 +37,13 @@
                                (body exp))])
       (interp new-exp env)))
   
+  (define (observe exp)
+    (let ([new-exp (let*->lets (binds exp)
+                               (body exp))])
+      (analyze new-exp)))
   
   (put eval eval-proc-key 'let*)
+  (put observe observe-proc-key 'let*)
   '(let* eval installed))
 
 

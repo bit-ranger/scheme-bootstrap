@@ -1,5 +1,7 @@
 ;#lang scheme
 
+(load "core.scm")
+(load "analyze.scm")
 (load "let.scm")
 (load "assignment.scm")
 (load "letrec.scm")
@@ -54,5 +56,15 @@
                                         (body exp)))])
           (interp let-exp env))))
     
+    
+    (define (observe exp)
+      (let ([bd (binds exp)])
+        (let ([let-exp (new-let (new-binds bd)
+                                (append (new-sets bd)
+                                        (body exp)))])
+          (analyze let-exp))))
+    
+    
     (put eval eval-proc-key 'letrec)
+    (put observe observe-proc-key 'letrec)
     '(letrec eval installed)))

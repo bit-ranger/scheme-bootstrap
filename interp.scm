@@ -3,6 +3,7 @@
 (require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "variable-eval.scm")
 (load "quote-eval.scm")
 (load "assignment-eval.scm")
@@ -79,7 +80,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;主程序
+;;;主程序,边解释边执行
 (define (repl)
   (prompt-for-input)
   (let ([input (read)])
@@ -87,3 +88,12 @@
       (announce-output)
       (result-print output)))
   (repl))
+
+;;;主程序，先解释后执行
+(define (repl-analyze)
+  (prompt-for-input)
+  (let ([input (read)])
+    (let ([output ((analyze input) the-global-environment)])
+      (announce-output)
+      (result-print output)))
+  (repl-analyze))

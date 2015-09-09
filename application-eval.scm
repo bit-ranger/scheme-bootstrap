@@ -2,8 +2,8 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "procedure.scm")
-(load "proc-transform.scm")
 (load "environment.scm")
 (load "application.scm")
 
@@ -12,8 +12,7 @@
   
   (let ([application-dispatch (make-application)]
         [procedure-dispatch (make-procedure)]
-        [environment-dispatch (make-environment)]
-        [proc-trans-dispatch (make-proc-transform)])
+        [environment-dispatch (make-environment)])
     
     ;表达式操作部分
     (define operator (application-dispatch 'operator))
@@ -45,12 +44,8 @@
     (define procedure-parameters
       (procedure-dispatch 'parameters))
     
-    (define (procedure-body proc)
-      (trans-body ((procedure-dispatch 'body) proc)))
-    
-    ;对过程体进行变形，提供同时定义的含义
-    (define trans-body
-      (proc-trans-dispatch 'trans-body))
+    (define procedure-body
+      (procedure-dispatch 'body))
     
     (define procedure-environment
       (procedure-dispatch 'environment))
@@ -86,6 +81,29 @@
       (adhibition (interp (operator exp) env)
                   (list-of-values (operands exp) env)))
     
+    (define (execute procedure arguments)
+      (cond [(primitive-procedure? procedure)
+             (apply-primitive-procedure procedure arguments)]
+            [(compound-procedure? procedure)
+             ((procedure-body procedure)
+              (extend-environment (procedure-parameters procedure)
+                                  arguments
+                                  (procedure-environment procedure)))]
+            [else (error "Unknown procedure -- EXECUTE"
+                         procedure
+                         arguments)]))
     
-    (put  eval eval-proc-key '**application**)
+    
+    (define (observe exp)
+      (let ([fproc (analyze (operator exp))]
+            [aprocs (map analyze (operands exp))])
+        (lambda (env)
+          (execute (fproc env)
+                   (map (lambda (aproc)
+                          (aproc env))
+                        aprocs)))))
+    
+    
+    (put eval eval-proc-key application-keyword)
+    (put observe observe-proc-key application-keyword)
     '(application eval installed)))

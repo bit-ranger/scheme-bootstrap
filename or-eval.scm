@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "if.scm")
 
 
@@ -32,7 +33,12 @@
   
   (define (eval exp env)
     (interp (or->if exp) env))
+
+  (define (observe exp)
+    (analyze (or->if exp)))
   
   (put eval eval-proc-key 'or)
   (put eval eval-proc-key '||)
+  (put observe observe-proc-key 'or)
+  (put observe observe-proc-key '||)
   '(or eval installed))

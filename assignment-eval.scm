@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "environment.scm")
 (load "assignment.scm")
 
@@ -23,6 +24,15 @@
                            env)
       'ok)
     
+    (define (observe exp)
+      (let ([var (variable exp)]
+            [proc (analyze (value exp))])
+        (lambda (env)
+          (set-variable-value! var
+                               (proc env)
+                               env)
+          'ok)))
+    
     (put eval eval-proc-key 'set!)
-    '(assignment eval installed)
-    ))
+    (put observe observe-proc-key 'set!)
+    '(assignment eval installed)))

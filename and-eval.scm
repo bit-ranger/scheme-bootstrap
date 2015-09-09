@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "if.scm")
 
 ;对and的处理
@@ -30,8 +31,13 @@
   (define (eval exp env)
     (interp (and->if exp) env))
   
+  (define (observe exp)
+    (analyze (and->if exp)))
+  
   (put eval eval-proc-key 'and)
   (put eval eval-proc-key '&&)
+  (put observe observe-proc-key 'and)
+  (put observe observe-proc-key '&&)
   '(and eval installed))
 
 

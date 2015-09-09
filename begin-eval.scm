@@ -2,7 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
-
+(load "analyze.scm")
 (load "begin.scm")
 
 ;对begind的处理
@@ -16,7 +16,11 @@
       (interp-sequence (actions exp)
                        env))
     
+    (define (observe exp)
+      (analyze-sequence (actions exp)))
+    
     (put eval eval-proc-key 'begin)
+    (put observe observe-proc-key 'begin)
     '(begin eval installed)))
 
 

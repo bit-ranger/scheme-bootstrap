@@ -2,6 +2,7 @@
 ;(require (planet neil/sicp))
 
 (load "core.scm")
+(load "analyze.scm")
 (load "lambda.scm")
 (load "application.scm")
 (load "let.scm")
@@ -32,7 +33,15 @@
                        ])
           (interp new-exp env))))
     
+    (define (observe exp)
+      (let ([binding (binds exp)])
+        (let ([new-exp (new-application (new-lambda (parameters binding)
+                                                    (body exp))
+                                        (values binding))
+                       ])
+          (analyze new-exp))))
     
     (put eval eval-proc-key 'let)
+    (put observe observe-proc-key 'let)
     '(let eval installed)))
 
