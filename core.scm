@@ -24,9 +24,11 @@
           (if (or (eq? type variable-keyword)
                   (eq? type application-keyword))
               (error "Unknown expression type -- INTERP" exp)
-              (if (variable? exp)
-                  (interp-generic (attach-tag variable-keyword exp) env)
-                  (interp-generic (attach-tag application-keyword exp) env)))))))
+              (cond [(variable? exp)
+                     (interp-generic (attach-tag variable-keyword exp) env)] 
+                    [(application? exp)
+                     (interp-generic (attach-tag application-keyword exp) env)]
+                    [else (error "Unknown expression type -- INTERP" exp)]))))))
 
 ;处理表达式序列
 (define (interp-sequence exps env)
@@ -43,6 +45,10 @@
 ;是否变量？
 (define (variable? exp)
   (symbol? exp))
+
+;是否过程应用？
+(define (application? exp)
+  (pair? exp))
 
 ;是否最后一个？
 (define (last-exp? seq)

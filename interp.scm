@@ -20,7 +20,9 @@
 (load "application-eval.scm")
 (load "environment.scm")
 (load "procedure.scm")
+(load "delay-force-eval.scm")
 
+(install-delay&force-eval)
 (install-letrec-eval)
 (install-let*-eval)
 (install-and-eval)

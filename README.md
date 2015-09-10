@@ -70,7 +70,7 @@
 (builder 'to-list)
 ```
 
-## 一些“不正常”的代码
+### 一些“不正常”的代码
 
 计算10的阶乘
 
@@ -86,6 +86,7 @@
 ```
 
 递归的内部定义
+
 ```scheme
 (define (even? x)
   (define (e? n)
@@ -99,4 +100,26 @@
   (e? x))
 ```
 
-###Enjoy It!
+# 惰性求值
+
+`delay` 用于使表达式延迟求值
+
+```scheme
+(define (f x)
+  (delay (set! x (cons x '(2))))
+  x)
+```
+
+`(f 1)` 返回值为 `1`
+
+`force` 用于对延迟的表达式强制求值
+
+```scheme
+(define (f x)
+  (force (delay (set! x (cons x '(2)))))
+  x)
+```
+`(f 1)` 返回值为 `'(1 2)`
+
+
+#Enjoy It!

@@ -19,9 +19,11 @@
           (if (or (eq? type variable-keyword)
                   (eq? type application-keyword))
               (error "Unknown expression type -- INTERP" exp)
-              (if (variable? exp)
-                  (analyze-generic (attach-tag variable-keyword exp))
-                  (analyze-generic (attach-tag application-keyword exp))))))))
+              (cond [(variable? exp)
+                     (analyze-generic (attach-tag variable-keyword exp))] 
+                    [(application? exp)
+                     (analyze-generic (attach-tag application-keyword exp))]
+                    [else (error "Unknown expression type -- INTERP" exp)]))))))
 
 ;处理表达式序列
 (define (analyze-sequence exps)

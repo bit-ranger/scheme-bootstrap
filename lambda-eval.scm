@@ -19,10 +19,7 @@
     (define parameters (lambda-dispatch 'parameters))
     
     (define (body exp)
-      (let ([bd ((trans-dispatch 'trans-body) ((lambda-dispatch 'body) exp))])
-        (display bd)
-        (newline)
-        bd))
+      ((trans-dispatch 'trans-body) ((lambda-dispatch 'body) exp)))
     
     (define new-procedure (procedure-dispatch 'construct))
     
