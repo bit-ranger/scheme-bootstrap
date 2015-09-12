@@ -4,7 +4,7 @@
 
 启动文件为： `interp.scm`
 
-建议使用 [racket](http://racket-lang.org/) 或 [MIT-scheme](http://www.gnu.org/software/mit-scheme/) 运行此程序
+建议使用 [racket](http://racket-lang.org/) 运行此程序
 
 
 # 程序入口

@@ -1,5 +1,4 @@
 #lang scheme/load
-
 (require (planet neil/sicp))
 
 (load "eval/core.scm")

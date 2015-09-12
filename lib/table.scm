@@ -32,7 +32,8 @@
                      [else
                       ;;;如果有记录，且不是列表，表示值需要覆盖为列表
                       (if (not (list? record))
-                          (set-cdr! record '()))
+                          (set-cdr! record '())
+                          #f)
                       (apply insert! record value rem)
                       table])]
               [else
