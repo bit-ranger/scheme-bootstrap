@@ -30,7 +30,7 @@
           (new-procedure vars proc env))))
     
     (put eval eval-proc-key 'lambda)
-    (put eval eval-proc-key 'λ)
+    ;(put eval eval-proc-key 'λ)
     (put observe observe-proc-key 'lambda)
-    (put observe observe-proc-key 'λ)
+    ;(put observe observe-proc-key 'λ)
     '(lambda eval installed)))
