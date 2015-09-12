@@ -1,5 +1,3 @@
-;#lang scheme
-
 (define (make-letrec)
   
   ;let构造器

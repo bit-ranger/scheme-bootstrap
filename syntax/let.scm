@@ -1,7 +1,6 @@
-
-(load "definition.scm")
-(load "application.scm")
-(load "lambda.scm")
+(load "syntax/definition.scm")
+(load "syntax/application.scm")
+(load "syntax/lambda.scm")
 
 (define (make-let)
   

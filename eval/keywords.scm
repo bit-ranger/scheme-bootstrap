@@ -1,5 +1,3 @@
-;#lang scheme
-
 (define undefined-keyword '**undefined**)
 
 (define variable-keyword '**variable**)

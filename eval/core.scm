@@ -1,8 +1,5 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "types.scm")
-(load "keywords.scm")
+(load "eval/types.scm")
+(load "eval/keywords.scm")
 
 (define (interp exp env)
   (cond [(self-evaluating? exp) exp]                                                  ; 字面量

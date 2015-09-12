@@ -1,8 +1,5 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "core.scm")
-(load "analyze.scm")
+(load "eval/core.scm")
+(load "eval/analyze.scm")
 
 ;对引号的处理
 (define (install-quote-eval)

@@ -1,9 +1,6 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "core.scm")
-(load "analyze.scm")
-(load "let.scm")
+(load "eval/core.scm")
+(load "eval/analyze.scm")
+(load "syntax/let.scm")
 
 ;对let*处理
 (define (install-let*-eval)

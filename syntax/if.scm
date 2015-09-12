@@ -1,6 +1,3 @@
-;#lang scheme
-;(require (planet neil/sicp))
-
 (define (make-if)
   
   ;if 谓词

@@ -1,5 +1,3 @@
-;#lang scheme
-
 (define (make-thunk)
   
   (define (construct body env)

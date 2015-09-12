@@ -1,14 +1,9 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
+(load "eval/core.scm")
+(load "eval/analyze.scm")
+(load "eval/procedure.scm")
+(load "eval/proc-transform.scm")
+(load "syntax/lambda.scm")
 
-(load "core.scm")
-(load "analyze.scm")
-(load "procedure.scm")
-(load "proc-transform.scm")
-(load "lambda.scm")
-
-
-;对lambda的处理
 (define (install-lambda-eval)
   
   (let ([lambda-dispatch (make-lambda)]

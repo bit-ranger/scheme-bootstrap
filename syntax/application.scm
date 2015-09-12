@@ -1,6 +1,3 @@
-;#lang scheme
-
-;处理调用
 ;需要注意，operator与operands需要用cons连接，而不是list
 (define (make-application)
   

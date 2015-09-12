@@ -1,8 +1,5 @@
-;#lang scheme
-
-(load "definition.scm")
-(load "letrec.scm")
-(load "keywords.scm")
+(load "syntax/definition.scm")
+(load "syntax/letrec.scm")
 
 (define (make-proc-transform)
   

@@ -1,9 +1,6 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "core.scm")
-(load "analyze.scm")
-(load "environment.scm")
+(load "eval/core.scm")
+(load "eval/analyze.scm")
+(load "eval/environment.scm")
 
 (define (install-variable-eval)
   

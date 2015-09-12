@@ -1,7 +1,4 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "core.scm")
+(load "eval/core.scm")
 
 (define observe-proc-key "analyze")
 

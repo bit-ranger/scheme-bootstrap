@@ -1,7 +1,4 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "table.scm")
+(load "lib/table.scm")
 
 (define operation-table
   (make-table))

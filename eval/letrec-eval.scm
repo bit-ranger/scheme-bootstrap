@@ -1,11 +1,9 @@
-;#lang scheme
-
-(load "core.scm")
-(load "analyze.scm")
-(load "let.scm")
-(load "assignment.scm")
-(load "letrec.scm")
-(load "keywords.scm")
+(load "eval/core.scm")
+(load "eval/analyze.scm")
+(load "eval/keywords.scm")
+(load "syntax/let.scm")
+(load "syntax/assignment.scm")
+(load "syntax/letrec.scm")
 
 
 ;提供同时定义语义的关键字

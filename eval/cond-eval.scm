@@ -1,11 +1,8 @@
-;#lang scheme/load
-;(require (planet neil/sicp))
-
-(load "core.scm")
-(load "analyze.scm")
-(load "if.scm")
-(load "begin.scm")
-(load "application.scm")
+(load "eval/core.scm")
+(load "eval/analyze.scm")
+(load "syntax/if.scm")
+(load "syntax/begin.scm")
+(load "syntax/application.scm")
 
 ;对cond的处理
 (define (install-cond-eval)

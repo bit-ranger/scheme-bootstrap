@@ -1,7 +1,4 @@
-;#lang scheme
-;(require (planet neil/sicp))
-
-(load "keywords.scm")
+(load "eval/keywords.scm")
 
 (define (make-environment)
   

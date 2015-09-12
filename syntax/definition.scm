@@ -1,7 +1,4 @@
-;#lang scheme
-
-(load "lambda.scm")
-
+(load "syntax/lambda.scm")
 
 (define (make-define)
   

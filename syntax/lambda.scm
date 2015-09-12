@@ -1,5 +1,3 @@
-;#lang scheme
-
 (define (make-lambda)
   
   ;构造lambda

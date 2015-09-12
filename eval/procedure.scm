@@ -1,6 +1,3 @@
-;#lang scheme
-;(require (planet neil/sicp))
-
 (define (make-procedure)
   ;判断exp是否以tag开头
   (define (tagged-list? exp tag)

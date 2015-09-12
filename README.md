@@ -70,36 +70,6 @@
 (builder 'to-list)
 ```
 
-### 一些“不正常”的代码
-
-计算10的阶乘
-
-```scheme
-((λ (n)
-   ((λ (f)
-      (f f n))
-    (λ (f k)
-      (if (= k 1)
-          1
-          (* k (f f (- k 1)))))))
- 10)
-```
-
-递归的内部定义
-
-```scheme
-(define (even? x)
-  (define (e? n)
-    (if (= n 0)
-        true
-        (o? (- n 1))))
-  (define (o? n)
-    (if (= n 0)
-        false
-        (e? (- n 1))))
-  (e? x))
-```
-
 # 惰性求值
 
 `delay` 用于使表达式延迟求值

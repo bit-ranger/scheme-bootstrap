@@ -1,5 +1,3 @@
-;#lang scheme
-
 (define (make-begin)
   
   ;构造begin
