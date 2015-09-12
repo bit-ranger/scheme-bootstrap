@@ -14,10 +14,10 @@
          (eq? 'thunk (car arg))))
   
   (define (dispatch m)
-    (cond [(eq? m 'env) env]
-          [(eq? m 'body) body]
-          [(eq? m 'construct) construct]
-          [(eq? m 'thunk?) thunk?]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'env) env)
+          ((eq? m 'body) body)
+          ((eq? m 'construct) construct)
+          ((eq? m 'thunk?) thunk?)
+          (else (error "Unknown operator" m))))
   
   dispatch)

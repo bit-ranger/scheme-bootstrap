@@ -15,9 +15,9 @@
     (cons proc params))
   
   (define (dispatch m)
-    (cond [(eq? 'operator m) operator]
-          [(eq? 'operands m) operands]
-          [(eq? 'construct m) construct]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? 'operator m) operator)
+          ((eq? 'operands m) operands)
+          ((eq? 'construct m) construct)
+          (else (error "Unknown operator" m))))
   dispatch)
 

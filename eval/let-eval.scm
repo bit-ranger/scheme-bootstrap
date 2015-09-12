@@ -11,7 +11,7 @@
   
   (define new-application ((make-application) 'construct))
   
-  (let ([let-dispatch (make-let)])
+  (let ((let-dispatch (make-let)))
     
     (define body (let-dispatch 'body))
     
@@ -23,19 +23,19 @@
     
     
     (define (eval exp env)
-      (let ([binding (binds exp)])
-        (let ([new-exp (new-application (new-lambda (parameters binding)
+      (let ((binding (binds exp)))
+        (let ((new-exp (new-application (new-lambda (parameters binding)
                                                     (body exp))
                                         (values binding))
-                       ])
+                       ))
           (interp new-exp env))))
     
     (define (observe exp)
-      (let ([binding (binds exp)])
-        (let ([new-exp (new-application (new-lambda (parameters binding)
+      (let ((binding (binds exp)))
+        (let ((new-exp (new-application (new-lambda (parameters binding)
                                                     (body exp))
                                         (values binding))
-                       ])
+                       ))
           (analyze new-exp))))
     
     (put eval eval-proc-key 'let)

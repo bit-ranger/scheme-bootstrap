@@ -47,8 +47,8 @@
   
   ;对body进行改变，转成内部定义，以及一次初始化调用
   (define (new-body exp)
-    (let ([name (cadr exp)]
-          [params (parameters (binds exp))])
+    (let ((name (cadr exp))
+          (params (parameters (binds exp))))
       (list (new-define name
                         (new-lambda params
                                     (cdddr exp)))
@@ -56,13 +56,13 @@
   
   
   (define (dispatch m)
-    (cond [(eq? m 'construct) construct]
-          [(eq? m 'binds) binds]
-          [(eq? m 'body) body]
-          [(eq? m 'parameters) parameters]
-          [(eq? m 'values) values]
-          [(eq? m 'bind) bind]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'construct) construct)
+          ((eq? m 'binds) binds)
+          ((eq? m 'body) body)
+          ((eq? m 'parameters) parameters)
+          ((eq? m 'values) values)
+          ((eq? m 'bind) bind)
+          (else (error "Unknown operator" m))))
   
   dispatch)
 

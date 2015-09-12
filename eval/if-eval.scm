@@ -5,7 +5,7 @@
 ;对判断语句的处理
 (define (install-if-eval)
   
-  (let ([if-dispatch (make-if)])
+  (let ((if-dispatch (make-if)))
     
     (define true? (if-dispatch 'true?))
     
@@ -21,9 +21,9 @@
           (interp (alternative exp) env)))
 
     (define (observe exp)
-      (let ([pproc (analyze (predicate exp))]
-            [cproc (analyze (consequent exp))]
-            [aproc (analyze (alternative exp))])
+      (let ((pproc (analyze (predicate exp)))
+            (cproc (analyze (consequent exp)))
+            (aproc (analyze (alternative exp))))
         (lambda (env)
           (if (true? (pproc env))
               (cproc env)

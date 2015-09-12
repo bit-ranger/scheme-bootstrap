@@ -7,8 +7,8 @@
 ;对定义的处理
 (define (install-definition-eval)
   
-  (let ([define-dispatch (make-define)]
-        [env-dispatch (make-environment)])
+  (let ((define-dispatch (make-define))
+        (env-dispatch (make-environment)))
     
     (define variable
       (define-dispatch 'variable))
@@ -25,8 +25,8 @@
       'ok)
 
     (define (observe exp)
-      (let ([var (variable exp)]
-            [proc (analyze (value exp))])
+      (let ((var (variable exp))
+            (proc (analyze (value exp))))
         (lambda (env)
           (define-variable! var (proc env) env)
           'ok)))

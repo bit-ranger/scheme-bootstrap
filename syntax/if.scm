@@ -28,11 +28,11 @@
     (list 'if predicate consequent alternative))
   
   (define (dispatch m)
-    (cond [(eq? m 'predicate) predicate]
-          [(eq? m 'consequent) consequent]
-          [(eq? m 'alternative) alternative]
-          [(eq? m 'true?) true?]
-          [(eq? m 'construct) construct]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'predicate) predicate)
+          ((eq? m 'consequent) consequent)
+          ((eq? m 'alternative) alternative)
+          ((eq? m 'true?) true?)
+          ((eq? m 'construct) construct)
+          (else (error "Unknown operator" m))))
   
   dispatch)

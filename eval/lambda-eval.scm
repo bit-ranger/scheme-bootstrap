@@ -6,9 +6,9 @@
 
 (define (install-lambda-eval)
   
-  (let ([lambda-dispatch (make-lambda)]
-        [procedure-dispatch (make-procedure)]
-        [trans-dispatch (make-proc-transform)])
+  (let ((lambda-dispatch (make-lambda))
+        (procedure-dispatch (make-procedure))
+        (trans-dispatch (make-proc-transform)))
     
     
     (define parameters (lambda-dispatch 'parameters))
@@ -24,8 +24,8 @@
                      env))
     
     (define (observe exp)
-      (let ([vars (parameters exp)]
-            [proc (analyze-sequence (body exp))])
+      (let ((vars (parameters exp))
+            (proc (analyze-sequence (body exp))))
         (lambda (env)
           (new-procedure vars proc env))))
     

@@ -1,5 +1,5 @@
-#lang scheme/load
-(require (planet neil/sicp))
+;#lang scheme/load
+;(require (planet neil/sicp))
 
 (load "eval/core.scm")
 (load "eval/analyze.scm")
@@ -46,9 +46,9 @@
 
   (define def-var (env-dispatch 'def))
   
-  (let ([initial-env ((env-dispatch 'extend) (proc-dispatch 'primitive-names)
+  (let ((initial-env ((env-dispatch 'extend) (proc-dispatch 'primitive-names)
                                              (proc-dispatch 'primitive-objects)
-                                             the-empty-environment)])
+                                             the-empty-environment)))
     
     ;为一些基本值赋予含义
     (def-var 'true true initial-env)
@@ -84,8 +84,8 @@
 ;;;主程序,边解释边执行
 (define (repl)
   (prompt-for-input)
-  (let ([input (read)])
-    (let ([output (interp input the-global-environment)])
+  (let ((input (read)))
+    (let ((output (interp input the-global-environment)))
       (announce-output)
       (result-print output)))
   (repl))
@@ -93,8 +93,8 @@
 ;;;主程序，先解释后执行
 (define (repl-analyze)
   (prompt-for-input)
-  (let ([input (read)])
-    (let ([output ((analyze input) the-global-environment)])
+  (let ((input (read)))
+    (let ((output ((analyze input) the-global-environment)))
       (announce-output)
       (result-print output)))
   (repl-analyze))

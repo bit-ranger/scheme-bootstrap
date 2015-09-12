@@ -10,8 +10,8 @@
     (cdr exp))
   
   (define (dispatch m)
-    (cond [(eq? 'construct m) construct]
-          [(eq? 'actions m) actions]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? 'construct m) construct)
+          ((eq? 'actions m) actions)
+          (else (error "Unknown operator" m))))
   dispatch)
 

@@ -9,9 +9,9 @@
 ;提供同时定义语义的关键字
 (define (install-letrec-eval)
   
-  (let ([let-dispatch (make-let)]
-        [assign-dispatch (make-assignment)]
-        [letrec-dispatch (make-letrec)])
+  (let ((let-dispatch (make-let))
+        (assign-dispatch (make-assignment))
+        (letrec-dispatch (make-letrec)))
     
     (define new-let (let-dispatch 'construct))
     
@@ -48,18 +48,18 @@
     
     ;过程体解释
     (define (eval exp env)
-      (let ([bd (binds exp)])
-        (let ([let-exp (new-let (new-binds bd)
+      (let ((bd (binds exp)))
+        (let ((let-exp (new-let (new-binds bd)
                                 (append (new-sets bd)
-                                        (body exp)))])
+                                        (body exp)))))
           (interp let-exp env))))
     
     
     (define (observe exp)
-      (let ([bd (binds exp)])
-        (let ([let-exp (new-let (new-binds bd)
+      (let ((bd (binds exp)))
+        (let ((let-exp (new-let (new-binds bd)
                                 (append (new-sets bd)
-                                        (body exp)))])
+                                        (body exp)))))
           (analyze let-exp))))
     
     

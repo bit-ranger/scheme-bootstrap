@@ -39,14 +39,14 @@
               (values (cdr binds)))))
   
   (define (dispatch m)
-    (cond [(eq? m 'construct) construct]
-          [(eq? m 'binds) binds]
-          [(eq? m 'body) body]
-          [(eq? m 'parameters) parameters]
-          [(eq? m 'values) values]
-          [(eq? m 'bind) bind]
-          [(eq? m 'variable) variable]
-          [(eq? m 'value) value]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'construct) construct)
+          ((eq? m 'binds) binds)
+          ((eq? m 'body) body)
+          ((eq? m 'parameters) parameters)
+          ((eq? m 'values) values)
+          ((eq? m 'bind) bind)
+          ((eq? m 'variable) variable)
+          ((eq? m 'value) value)
+          (else (error "Unknown operator" m))))
   
   dispatch)

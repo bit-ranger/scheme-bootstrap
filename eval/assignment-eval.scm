@@ -7,7 +7,7 @@
 ;对赋值的处理办法
 (define (install-assignment-eval)
   
-  (let ([assign-dispatch (make-assignment)])
+  (let ((assign-dispatch (make-assignment)))
     
     (define set-variable-value! ((make-environment) 'set))
     
@@ -22,8 +22,8 @@
       'ok)
     
     (define (observe exp)
-      (let ([var (variable exp)]
-            [proc (analyze (value exp))])
+      (let ((var (variable exp))
+            (proc (analyze (value exp))))
         (lambda (env)
           (set-variable-value! var
                                (proc env)

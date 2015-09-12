@@ -19,8 +19,8 @@
   (define (expand-clauses clauses)
     (if (null? clauses)
         'true
-        (let ([first (car clauses)]
-              [rest  (cdr clauses)])
+        (let ((first (car clauses))
+              (rest  (cdr clauses)))
           (new-if first
                   (expand-clauses rest)
                   'false))))

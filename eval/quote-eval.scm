@@ -11,7 +11,7 @@
     (text-of-quotation exp))
 
   (define (observe exp)
-    (let ([val (text-of-quotation exp)])
+    (let ((val (text-of-quotation exp)))
       (lambda (env) val)))
   
   (put eval eval-proc-key 'quote)

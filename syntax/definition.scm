@@ -25,11 +25,11 @@
          (eq? 'define (car exp))))
   
   (define (dispatch m)
-    (cond [(eq? m 'variable) variable]
-          [(eq? m 'value) value]
-          [(eq? m 'construct) construct]
-          [(eq? m 'define?) define?]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'variable) variable)
+          ((eq? m 'value) value)
+          ((eq? m 'construct) construct)
+          ((eq? m 'define?) define?)
+          (else (error "Unknown operator" m))))
   
   dispatch)
 

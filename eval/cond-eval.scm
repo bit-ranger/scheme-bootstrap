@@ -41,8 +41,8 @@
   (define (expand-clauses clauses)
     (if (null? clauses)
         'false
-        (let ([first (car clauses)]
-              [rest  (cdr clauses)])
+        (let ((first (car clauses))
+              (rest  (cdr clauses)))
           (if (cond-else-clause? first)
               (if (null? rest)
                   (sequence->exp (cond-actions first))
@@ -60,9 +60,9 @@
   
   ;序列转表达式
   (define (sequence->exp seq)
-    (cond [(null? seq) seq]
-          [(last-exp? seq) (first-exp seq)]
-          [else (new-begin seq)]))                            ;if的每个分支都是一个语句，而不是语句序列
+    (cond ((null? seq) seq)
+          ((last-exp? seq) (first-exp seq))
+          (else (new-begin seq))))                            ;if的每个分支都是一个语句，而不是语句序列
   
   (define (eval exp env)
     (interp (cond->if exp) env))

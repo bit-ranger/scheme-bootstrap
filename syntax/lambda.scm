@@ -15,9 +15,9 @@
     (cddr exp))
   
   (define (dispatch m)
-    (cond [(eq? m 'parameters) parameters]
-          [(eq? m 'body) body]
-          [(eq? m 'construct) construct]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'parameters) parameters)
+          ((eq? m 'body) body)
+          ((eq? m 'construct) construct)
+          (else (error "Unknown operator" m))))
   
   dispatch)

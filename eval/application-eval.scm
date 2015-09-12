@@ -7,9 +7,9 @@
 
 (define (install-application-eval)
   
-  (let ([application-dispatch (make-application)]
-        [procedure-dispatch (make-procedure)]
-        [environment-dispatch (make-environment)])
+  (let ((application-dispatch (make-application))
+        (procedure-dispatch (make-procedure))
+        (environment-dispatch (make-environment)))
     
     ;表达式操作部分
     (define operator (application-dispatch 'operator))
@@ -56,22 +56,22 @@
     (define (list-of-values exps env)
       (if (no-operands? exps)
           exps
-          (cons (let ([value (interp (first-operand exps) env)])
+          (cons (let ((value (interp (first-operand exps) env)))
                   value)
                 (list-of-values (rest-operands exps) env))))
     
     
     (define (adhibition procedure arguments)
-      (cond [(primitive-procedure? procedure)
-             (apply-primitive-procedure procedure arguments)]
-            [(compound-procedure? procedure)
+      (cond ((primitive-procedure? procedure)
+             (apply-primitive-procedure procedure arguments))
+            ((compound-procedure? procedure)
              (interp-sequence (procedure-body procedure)
                               (extend-environment (procedure-parameters procedure)
                                                   arguments
-                                                  (procedure-environment procedure)))]
-            [else (error "Unknown procedure -- ADHIBITION"
+                                                  (procedure-environment procedure))))
+            (else (error "Unknown procedure -- ADHIBITION"
                          procedure
-                         arguments)]))
+                         arguments))))
     
     
     (define (eval exp env)
@@ -79,21 +79,21 @@
                   (list-of-values (operands exp) env)))
     
     (define (execute procedure arguments)
-      (cond [(primitive-procedure? procedure)
-             (apply-primitive-procedure procedure arguments)]
-            [(compound-procedure? procedure)
+      (cond ((primitive-procedure? procedure)
+             (apply-primitive-procedure procedure arguments))
+            ((compound-procedure? procedure)
              ((procedure-body procedure)
               (extend-environment (procedure-parameters procedure)
                                   arguments
-                                  (procedure-environment procedure)))]
-            [else (error "Unknown procedure -- EXECUTE"
+                                  (procedure-environment procedure))))
+            (else (error "Unknown procedure -- EXECUTE"
                          procedure
-                         arguments)]))
+                         arguments))))
     
     
     (define (observe exp)
-      (let ([fproc (analyze (operator exp))]
-            [aprocs (map analyze (operands exp))])
+      (let ((fproc (analyze (operator exp)))
+            (aprocs (map analyze (operands exp))))
         (lambda (env)
           (execute (fproc env)
                    (map (lambda (aproc)

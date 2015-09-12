@@ -43,17 +43,17 @@
   (define (lookup-variable-value var env)
     (define (env-loop env)
       (define (scan vars vals)
-        (cond [(null? vars)
-               (env-loop (enclosing-environment env))]
-              [(eq? var (car vars))
-               (car vals)]
-              [else (scan (cdr vars) (cdr vals))]))
+        (cond ((null? vars)
+               (env-loop (enclosing-environment env)))
+              ((eq? var (car vars))
+               (car vals))
+              (else (scan (cdr vars) (cdr vals)))))
       (if (eq? env the-empty-environment)
           (error "Unbound variable" var)
-          (let ([frame (first-frame env)])
+          (let ((frame (first-frame env)))
             (scan (frame-variables frame)
                   (frame-values frame)))))
-    (let ([value (env-loop env)])
+    (let ((value (env-loop env)))
       (if (eq? value undefined-keyword)
           (error var "undefined;  cannot use before initialization!")
           value)))
@@ -62,36 +62,36 @@
   (define (set-variable-value! var val env)
     (define (env-loop env)
       (define (scan vars vals)
-        (cond [(null? vars)
-               (env-loop (enclosing-environment env))]
-              [(eq? var (car vars))
-               (set-car! vals val)]
-              [else (scan (cdr vars) (cdr vals))]))
+        (cond ((null? vars)
+               (env-loop (enclosing-environment env)))
+              ((eq? var (car vars))
+               (set-car! vals val))
+              (else (scan (cdr vars) (cdr vals)))))
       (if (eq? env the-empty-environment)
           (error "Unbound variable" var)
-          (let ([frame (first-frame env)])
+          (let ((frame (first-frame env)))
             (scan (frame-variables frame)
                   (frame-values frame)))))
     (env-loop env))
   
   ;定义变量，只在当前frame搜索
   (define (define-variable! var val env)
-    (let ([frame (first-frame env)])
+    (let ((frame (first-frame env)))
       (define (scan vars vals)
-        (cond [(null? vars)
-               (add-binding-to-frame! var val frame)]
-              [(eq? var (car vars))
-               (set-car! vals val)]
-              [else (scan (cdr vars) (cdr vals))]))
+        (cond ((null? vars)
+               (add-binding-to-frame! var val frame))
+              ((eq? var (car vars))
+               (set-car! vals val))
+              (else (scan (cdr vars) (cdr vals)))))
       (scan (frame-variables frame)
             (frame-values frame))))
   
   (define (dispatch m)
-    (cond [(eq? m 'def) define-variable!]
-          [(eq? m 'set) set-variable-value!]
-          [(eq? m 'lookup) lookup-variable-value]
-          [(eq? m 'extend) extend-environment]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'def) define-variable!)
+          ((eq? m 'set) set-variable-value!)
+          ((eq? m 'lookup) lookup-variable-value)
+          ((eq? m 'extend) extend-environment)
+          (else (error "Unknown operator" m))))
   dispatch)
 
 ;空环境

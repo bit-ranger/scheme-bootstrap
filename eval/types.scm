@@ -31,8 +31,8 @@
 ; op 函数名
 ; args 参数列表
 (define (apply-generic op . args)
-  (let ([type-tags (map type-tag args)]) ;;;参数类型的列表
-    (let ([proc (get op type-tags)])     ;;;通过函数名与类型列表取到函数体
+  (let ((type-tags (map type-tag args))) ;;;参数类型的列表
+    (let ((proc (get op type-tags)))     ;;;通过函数名与类型列表取到函数体
       (if proc
           (apply proc (map contents args))
           (error "No method for these types -- APPLY-GENERIC"

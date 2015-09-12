@@ -63,19 +63,19 @@
   
   ;这些基本过程需要由解释器执行
   (define (apply-primitive proc args)
-    (let ([p (primitive-implementation proc)])
+    (let ((p (primitive-implementation proc)))
       (apply p args)))
   
   (define (dispatch m)
-    (cond [(eq? m 'construct) construct]
-          [(eq? m 'compound?) compound?]
-          [(eq? m 'parameters) parameters]
-          [(eq? m 'body) body]
-          [(eq? m 'environment) environment]
-          [(eq? m 'primitive?) primitive?]
-          [(eq? m 'apply-primitive) apply-primitive]
-          [(eq? m 'primitive-names) (primitive-names)]
-          [(eq? m 'primitive-objects) (primitive-objects)]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'construct) construct)
+          ((eq? m 'compound?) compound?)
+          ((eq? m 'parameters) parameters)
+          ((eq? m 'body) body)
+          ((eq? m 'environment) environment)
+          ((eq? m 'primitive?) primitive?)
+          ((eq? m 'apply-primitive) apply-primitive)
+          ((eq? m 'primitive-names) (primitive-names))
+          ((eq? m 'primitive-objects) (primitive-objects))
+          (else (error "Unknown operator" m))))
   dispatch)
 

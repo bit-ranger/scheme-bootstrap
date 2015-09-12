@@ -12,9 +12,9 @@
     (list 'set! var value))
   
   (define (dispatch m)
-    (cond [(eq? m 'variable) variable]
-          [(eq? m 'value) value]
-          [(eq? m 'construct) construct]
-          [else (error "Unknown operator" m)]))
+    (cond ((eq? m 'variable) variable)
+          ((eq? m 'value) value)
+          ((eq? m 'construct) construct)
+          (else (error "Unknown operator" m))))
   
   dispatch)

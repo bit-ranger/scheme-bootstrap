@@ -5,7 +5,7 @@
 ;对begind的处理
 (define (install-begin-eval)
   
-  (let ([begin-dispatch (make-begin)])
+  (let ((begin-dispatch (make-begin)))
     
     (define actions (begin-dispatch 'actions))
     

@@ -14,7 +14,7 @@
   
   ;or转成if
   (define (or->if exp)
-    (let ([value (expand-clauses (or-clauses exp))])
+    (let ((value (expand-clauses (or-clauses exp))))
       (display value)
       value))
   
@@ -22,8 +22,8 @@
   (define (expand-clauses clauses)
     (if (null? clauses)
         'false
-        (let ([first (car clauses)]
-              [rest  (cdr clauses)])
+        (let ((first (car clauses))
+              (rest  (cdr clauses)))
           (new-if first
                   'true
                   (expand-clauses rest)))))
